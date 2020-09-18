@@ -14,7 +14,13 @@ for(const file of commandfiles){
 }
 
 client.once('ready', () => {
-    console.log('Kopasz bot is on');
+    console.log('Informatikus Szaktanács bot is on');
+    /*client.channels.cache.get('756462364211282011').send({embed: {
+        fields: [
+            {name: 'Szabályzat',
+        value:"Sziasztok @everyone\n\n Kérlek olvassátok el a szabályzatot mielőtt használatba veszitek a szervert, és reagáljatok az üzenetre egy ✅-al!\n\n ➡️ Discord szobákat próbáljuk meg rendeltetésszerűen használni!\n\n ➡️ Káromkodás engedélyezett mindaddig amíg az nem egymás sértegetésére/degradálására irányul, személyes konfliktusokat NE ITT rendezzétek!\n\n ➡️ Ha bárki észlelt bármi szabálytalanságot vagy problémát, akkor az privátban nyugodtan keressen egy dc  moderátort és rendezzük a dolgokat!\n\n ➡️ Fogadjuk el egymás véleményét, még ha teljesen ellentétes is a sajátunkkal. Ez egy nagyon fontos dolog ahhoz, hogy sikeresen tudjunk egymással kommunikálni!", inline:true}
+        ]
+    }});*/
 })
 
 client.on('message', (message) => {
@@ -27,4 +33,11 @@ client.on('message', (message) => {
     }
 });
 
-client.login(tokenPlace);
+client.on("messageReactionAdd", (reaction, user) => {
+    if(reaction.message.channel.id === '756462364211282011' && reaction.emoji.name === '✅'){
+        let role = reaction.message.guild.roles.cache.get('756525568748552302');
+        reaction.message.guild.member(user).roles.add(role);
+    }
+})
+
+client.login(token);
